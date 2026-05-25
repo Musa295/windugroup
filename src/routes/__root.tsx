@@ -7,6 +7,9 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 
@@ -72,20 +75,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Windu.Group — Окна и двери из ПВХ и алюминия в Чеченской Республике" },
+      { name: "description", content: "Производство и установка окон и дверей из ПВХ и алюминия в Чеченской Республике. Беспроцентная рассрочка, москитные сетки в подарок, бесплатный замер и монтаж." },
+      { name: "author", content: "Windu.Group" },
+      { property: "og:title", content: "Windu.Group — Окна и двери в Чеченской Республике" },
+      { property: "og:description", content: "ПВХ и алюминиевые окна и двери под ключ. Рассрочка 0%, замер и монтаж бесплатно по всей ЧР." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" },
     ],
   }),
   shellComponent: RootShell,
