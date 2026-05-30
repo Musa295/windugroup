@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { CallbackDialog } from "@/components/CallbackDialog";
 import { Button } from "@/components/ui/button";
-import { Wrench, Zap, Hand, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
+import manualPress from "@/assets/equip/manual-press.jpg";
+import cornerCrimping from "@/assets/equip/corner-crimping.jpg";
+import pneumaticPress from "@/assets/equip/pneumatic-press.jpg";
 
 export const Route = createFileRoute("/equipment")({
   head: () => ({
@@ -15,19 +18,19 @@ export const Route = createFileRoute("/equipment")({
 
 const items = [
   {
-    icon: Hand,
+    image: manualPress,
     title: "Пресс ручной пробивочный для алюминиевых профилей",
     text: "Компактный станок для пробивки технологических отверстий в алюминиевых профилях. Подходит для небольших производств и мастерских.",
     specs: ["Ручной привод", "Сменные пуансоны и матрицы", "Подходит для всех типов алюминия", "Простое обслуживание"],
   },
   {
-    icon: Wrench,
+    image: cornerCrimping,
     title: "Углообжимной станок",
     text: "Станок для соединения алюминиевых профилей под углом 90°. Обеспечивает прочное и герметичное угловое соединение оконных и дверных рам.",
     specs: ["Регулировка усилия обжима", "Сменные ножи", "Точное позиционирование", "Для серийного производства"],
   },
   {
-    icon: Zap,
+    image: pneumaticPress,
     title: "Пресс пневматический пробивочный для алюминия",
     text: "Высокопроизводительный пневматический пресс для серийной пробивки отверстий в алюминиевых профилях. Скорость и точность для крупного производства.",
     specs: ["Пневматический привод", "Высокая производительность", "Точная пробивка", "Сменная оснастка"],
@@ -47,26 +50,28 @@ function EquipmentPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl space-y-6 px-4 py-16">
-        {items.map((it) => (
-          <article key={it.title} className="grid gap-6 rounded-3xl border border-border bg-card p-6 md:grid-cols-[auto_1fr_auto] md:items-center md:p-8">
-            <div className="grid h-20 w-20 place-items-center rounded-2xl bg-accent/10 text-accent">
-              <it.icon className="h-10 w-10" />
+      <section className="mx-auto max-w-7xl space-y-8 px-4 py-16">
+        {items.map((it, i) => (
+          <article key={it.title} className="grid items-center gap-8 rounded-3xl border border-border bg-card p-6 md:grid-cols-2 md:p-8">
+            <div className={`overflow-hidden rounded-2xl bg-surface ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              <img src={it.image} alt={it.title} loading="lazy" className="aspect-[4/3] w-full object-cover" />
             </div>
             <div>
               <h2 className="font-display text-xl font-bold md:text-2xl">{it.title}</h2>
-              <p className="mt-2 text-muted-foreground">{it.text}</p>
-              <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              <p className="mt-3 text-muted-foreground">{it.text}</p>
+              <ul className="mt-5 grid gap-2 sm:grid-cols-2">
                 {it.specs.map((s) => (
                   <li key={s} className="flex items-start gap-2 text-sm">
                     <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" /> {s}
                   </li>
                 ))}
               </ul>
+              <div className="mt-6">
+                <CallbackDialog defaultTopic={`Оборудование: ${it.title}`}>
+                  <Button variant="accent" size="lg">Запросить цену</Button>
+                </CallbackDialog>
+              </div>
             </div>
-            <CallbackDialog defaultTopic={`Оборудование: ${it.title}`}>
-              <Button variant="accent" size="lg">Запросить цену</Button>
-            </CallbackDialog>
           </article>
         ))}
       </section>
