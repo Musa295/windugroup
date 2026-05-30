@@ -1,24 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { Phone, Mail, MapPin, Menu, X } from "lucide-react";
+import { Phone, Mail, MapPin, Menu, X, Calculator, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { SITE } from "@/lib/site";
 import { CallbackDialog } from "./CallbackDialog";
 import { Button } from "./ui/button";
+import { Logo } from "./Logo";
 
 const nav = [
   { to: "/", label: "Главная" },
   { to: "/catalog", label: "Каталог" },
+  { to: "/calculator", label: "Калькулятор" },
+  { to: "/promotions", label: "Акции" },
   { to: "/equipment", label: "Оборудование" },
   { to: "/reviews", label: "Отзывы" },
   { to: "/contacts", label: "Контакты" },
-];
+] as const;
 
 export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="border-b border-border/60 bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-md">
+      <div className="bg-primary text-primary-foreground">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2 text-xs">
           <div className="flex items-center gap-4">
             <a href={`mailto:${SITE.email}`} className="hidden items-center gap-1.5 opacity-80 hover:opacity-100 sm:flex">
@@ -28,24 +31,17 @@ export function Header() {
               <MapPin className="h-3.5 w-3.5" /> {SITE.address}
             </span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="opacity-80">Беспроцентная рассрочка · Замер бесплатно</span>
+          <div className="flex items-center gap-2 text-accent">
+            <Sparkles className="h-3.5 w-3.5" />
+            <span>Беспроцентная рассрочка · Замер и монтаж бесплатно</span>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="grid h-10 w-10 place-items-center rounded-md bg-primary text-primary-foreground">
-            <span className="font-display text-lg font-bold">W</span>
-          </div>
-          <div className="leading-tight">
-            <div className="font-display text-lg font-bold tracking-tight">Windu<span className="text-accent">.Group</span></div>
-            <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Окна · Двери · Алюминий</div>
-          </div>
-        </Link>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5">
+        <Logo />
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-6 xl:flex">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -70,7 +66,7 @@ export function Header() {
           </CallbackDialog>
           <button
             onClick={() => setOpen((s) => !s)}
-            className="grid h-10 w-10 place-items-center rounded-md border border-border lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-md border border-border xl:hidden"
             aria-label="Меню"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -79,16 +75,17 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-background lg:hidden">
+        <div className="border-t border-border bg-background xl:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col px-4 py-3">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm font-medium border-b border-border/40 last:border-0"
+                className="flex items-center gap-2 py-3 text-sm font-medium border-b border-border/40 last:border-0"
                 activeProps={{ className: "text-accent" }}
               >
+                {n.to === "/calculator" && <Calculator className="h-4 w-4" />}
                 {n.label}
               </Link>
             ))}

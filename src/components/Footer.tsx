@@ -1,15 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, Mail, MapPin, Send, MessageCircle } from "lucide-react";
 import { SITE } from "@/lib/site";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-border bg-primary text-primary-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4">
         <div>
-          <div className="font-display text-xl font-bold">Windu<span className="text-accent">.Group</span></div>
-          <p className="mt-3 text-sm opacity-80">
-            Производство и установка окон и дверей из ПВХ и алюминия в Чеченской Республике с 2018 года.
+          <Logo variant="light" />
+          <p className="mt-4 text-sm opacity-80">
+            Производство и установка окон, дверей и балконных систем из ПВХ и алюминия в Чеченской Республике с 2018 года.
           </p>
           <div className="mt-4 flex gap-2">
             <a href={SITE.whatsapp} target="_blank" rel="noreferrer" className="grid h-10 w-10 place-items-center rounded-md bg-white/10 hover:bg-accent transition-colors" aria-label="WhatsApp">
@@ -26,6 +27,8 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/" className="opacity-80 hover:opacity-100 hover:text-accent">Главная</Link></li>
             <li><Link to="/catalog" className="opacity-80 hover:opacity-100 hover:text-accent">Каталог</Link></li>
+            <li><Link to="/calculator" className="opacity-80 hover:opacity-100 hover:text-accent">Калькулятор</Link></li>
+            <li><Link to="/promotions" className="opacity-80 hover:opacity-100 hover:text-accent">Акции</Link></li>
             <li><Link to="/equipment" className="opacity-80 hover:opacity-100 hover:text-accent">Оборудование</Link></li>
             <li><Link to="/reviews" className="opacity-80 hover:opacity-100 hover:text-accent">Отзывы</Link></li>
             <li><Link to="/contacts" className="opacity-80 hover:opacity-100 hover:text-accent">Контакты</Link></li>
@@ -42,12 +45,13 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="font-display text-sm font-semibold uppercase tracking-wider opacity-70">Подарки и условия</h4>
+          <h4 className="font-display text-sm font-semibold uppercase tracking-wider opacity-70">Наши условия</h4>
           <ul className="mt-4 space-y-2 text-sm opacity-80">
             <li>· Беспроцентная рассрочка</li>
             <li>· Москитные сетки в подарок</li>
             <li>· Бесплатный замер по ЧР</li>
             <li>· Бесплатная доставка и монтаж</li>
+            <li>· Гарантия до 10 лет</li>
           </ul>
         </div>
       </div>
