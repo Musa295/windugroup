@@ -173,10 +173,10 @@ function HomePage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <img src={products[1].image} alt="Алюминиевые окна" className="aspect-[3/4] w-full rounded-2xl object-cover" />
+              <img src={products[3].image} alt="Алюминиевые окна" className="aspect-[3/4] w-full rounded-2xl object-cover" />
               <div className="space-y-3">
-                <img src={products[5].image} alt="Фасадное остекление" className="aspect-square w-full rounded-2xl object-cover" />
-                <img src={products[3].image} alt="Алюминиевые двери" className="aspect-square w-full rounded-2xl object-cover" />
+                <img src={products[7].image} alt="Фасадное остекление" className="aspect-square w-full rounded-2xl object-cover" />
+                <img src={products[5].image} alt="Алюминиевые двери" className="aspect-square w-full rounded-2xl object-cover" />
               </div>
             </div>
           </div>
