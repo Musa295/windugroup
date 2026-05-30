@@ -213,8 +213,8 @@ function HomePage() {
                   {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-4 w-4 fill-current" />)}
                 </div>
                 <p className="mt-3 text-sm text-muted-foreground line-clamp-5">{r.text}</p>
-                <div className="mt-4 text-sm font-semibold">{r.author}</div>
-                <div className="text-xs text-muted-foreground">{r.date}</div>
+                <div className="mt-4 text-sm font-semibold">{r.name}</div>
+                <div className="text-xs text-muted-foreground">{r.date} · {r.topic}</div>
               </div>
             ))}
           </div>

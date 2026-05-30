@@ -31,7 +31,9 @@ export const Route = createFileRoute("/catalog/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData();
+  const data = Route.useLoaderData() as { product: Product } | undefined;
+  if (!data) return null;
+  const { product } = data;
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
 
   const perks = [
