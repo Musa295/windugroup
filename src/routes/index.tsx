@@ -118,7 +118,7 @@ function HomePage() {
           </div>
 
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((p) => (
+            {products.slice(0, 6).map((p) => (
               <Link to="/catalog/$slug" params={{ slug: p.slug }} key={p.slug} className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
