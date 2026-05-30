@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getProduct, products } from "@/lib/catalog";
+import { getProduct, products, type Product } from "@/lib/catalog";
 import { CallbackDialog } from "@/components/CallbackDialog";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, CheckCircle2, Gift, Percent, ShieldCheck, Truck } from "lucide-react";
