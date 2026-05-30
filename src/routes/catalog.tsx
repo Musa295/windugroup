@@ -13,7 +13,7 @@ export const Route = createFileRoute("/catalog")({
   component: CatalogPage,
 });
 
-const filters = ["Все", "Окна", "Двери", "Балконы"] as const;
+const filters = ["Все", "Окна", "Двери", "Балконы", "Сетки"] as const;
 
 function CatalogPage() {
   const [active, setActive] = useState<(typeof filters)[number]>("Все");
