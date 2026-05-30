@@ -118,7 +118,7 @@ function HomePage() {
           </div>
 
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {products.map((p) => (
+            {products.slice(0, 6).map((p) => (
               <Link to="/catalog/$slug" params={{ slug: p.slug }} key={p.slug} className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -173,10 +173,10 @@ function HomePage() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3">
-              <img src={products[1].image} alt="Алюминиевые окна" className="aspect-[3/4] w-full rounded-2xl object-cover" />
+              <img src={products[3].image} alt="Алюминиевые окна" className="aspect-[3/4] w-full rounded-2xl object-cover" />
               <div className="space-y-3">
-                <img src={products[5].image} alt="Фасадное остекление" className="aspect-square w-full rounded-2xl object-cover" />
-                <img src={products[3].image} alt="Алюминиевые двери" className="aspect-square w-full rounded-2xl object-cover" />
+                <img src={products[7].image} alt="Фасадное остекление" className="aspect-square w-full rounded-2xl object-cover" />
+                <img src={products[5].image} alt="Алюминиевые двери" className="aspect-square w-full rounded-2xl object-cover" />
               </div>
             </div>
           </div>
