@@ -78,10 +78,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Windu.Group — Окна и двери из ПВХ и алюминия в Чеченской Республике" },
       { name: "description", content: "Производство и установка окон и дверей из ПВХ и алюминия в Чеченской Республике. Беспроцентная рассрочка, москитные сетки в подарок, бесплатный замер и монтаж." },
       { name: "author", content: "Windu.Group" },
-      { property: "og:title", content: "Windu.Group — Окна и двери в Чеченской Республике" },
-      { property: "og:description", content: "ПВХ и алюминиевые окна и двери под ключ. Рассрочка 0%, замер и монтаж бесплатно по всей ЧР." },
+      { property: "og:title", content: "Windu.Group — Окна и двери из ПВХ и алюминия в Чеченской Республике" },
+      { property: "og:description", content: "Производство и установка окон и дверей из ПВХ и алюминия в Чеченской Республике. Беспроцентная рассрочка, москитные сетки в подарок, бесплатный замер и монтаж." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Windu.Group — Окна и двери из ПВХ и алюминия в Чеченской Республике" },
+      { name: "twitter:description", content: "Производство и установка окон и дверей из ПВХ и алюминия в Чеченской Республике. Беспроцентная рассрочка, москитные сетки в подарок, бесплатный замер и монтаж." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6c0e4c23-5af4-4538-9c0d-dad3e0904600" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6c0e4c23-5af4-4538-9c0d-dad3e0904600" },
     ],
     links: [
       {
