@@ -11,6 +11,7 @@ const nav = [
   { to: "/catalog", label: "Каталог" },
   { to: "/calculator", label: "Калькулятор" },
   { to: "/promotions", label: "Акции" },
+  { to: "/portfolio", label: "Портфолио" },
   { to: "/equipment", label: "Оборудование" },
   { to: "/reviews", label: "Отзывы" },
   { to: "/contacts", label: "Контакты" },
