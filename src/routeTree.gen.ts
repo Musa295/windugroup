@@ -54,9 +54,9 @@ const CatalogIndexRoute = CatalogIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const CatalogSlugRoute = CatalogSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => CatalogRoute,
+  id: '/catalog/$slug',
+  path: '/catalog/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -130,6 +130,7 @@ export interface RootRouteChildren {
   EquipmentRoute: typeof EquipmentRoute
   PromotionsRoute: typeof PromotionsRoute
   ReviewsRoute: typeof ReviewsRoute
+  CatalogSlugRoute: typeof CatalogSlugRoute
   CatalogIndexRoute: typeof CatalogIndexRoute
 }
 
@@ -186,10 +187,10 @@ declare module '@tanstack/react-router' {
     }
     '/catalog/$slug': {
       id: '/catalog/$slug'
-      path: '/$slug'
+      path: '/catalog/$slug'
       fullPath: '/catalog/$slug'
       preLoaderRoute: typeof CatalogSlugRouteImport
-      parentRoute: typeof CatalogRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -201,18 +202,9 @@ const rootRouteChildren: RootRouteChildren = {
   EquipmentRoute: EquipmentRoute,
   PromotionsRoute: PromotionsRoute,
   ReviewsRoute: ReviewsRoute,
+  CatalogSlugRoute: CatalogSlugRoute,
   CatalogIndexRoute: CatalogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
