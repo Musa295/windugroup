@@ -29,6 +29,7 @@ export function Footer() {
             <li><Link to="/catalog" className="opacity-80 hover:opacity-100 hover:text-accent">Каталог</Link></li>
             <li><Link to="/calculator" className="opacity-80 hover:opacity-100 hover:text-accent">Калькулятор</Link></li>
             <li><Link to="/promotions" className="opacity-80 hover:opacity-100 hover:text-accent">Акции</Link></li>
+            <li><Link to="/portfolio" className="opacity-80 hover:opacity-100 hover:text-accent">Портфолио</Link></li>
             <li><Link to="/equipment" className="opacity-80 hover:opacity-100 hover:text-accent">Оборудование</Link></li>
             <li><Link to="/reviews" className="opacity-80 hover:opacity-100 hover:text-accent">Отзывы</Link></li>
             <li><Link to="/contacts" className="opacity-80 hover:opacity-100 hover:text-accent">Контакты</Link></li>
