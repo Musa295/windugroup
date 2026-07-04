@@ -11,11 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PromotionsRouteImport } from './routes/promotions'
+import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as EquipmentRouteImport } from './routes/equipment'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as CalculatorRouteImport } from './routes/calculator'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
 
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -26,6 +28,11 @@ const ReviewsRoute = ReviewsRouteImport.update({
 const PromotionsRoute = PromotionsRouteImport.update({
   id: '/promotions',
   path: '/promotions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfolioRoute = PortfolioRouteImport.update({
+  id: '/portfolio',
+  path: '/portfolio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EquipmentRoute = EquipmentRouteImport.update({
@@ -53,6 +60,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CatalogIndexRoute = CatalogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CatalogRoute,
+} as any)
 const CatalogSlugRoute = CatalogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -65,19 +77,22 @@ export interface FileRoutesByFullPath {
   '/catalog': typeof CatalogRouteWithChildren
   '/contacts': typeof ContactsRoute
   '/equipment': typeof EquipmentRoute
+  '/portfolio': typeof PortfolioRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/catalog/': typeof CatalogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculator': typeof CalculatorRoute
-  '/catalog': typeof CatalogRouteWithChildren
   '/contacts': typeof ContactsRoute
   '/equipment': typeof EquipmentRoute
+  '/portfolio': typeof PortfolioRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/catalog': typeof CatalogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +101,11 @@ export interface FileRoutesById {
   '/catalog': typeof CatalogRouteWithChildren
   '/contacts': typeof ContactsRoute
   '/equipment': typeof EquipmentRoute
+  '/portfolio': typeof PortfolioRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
   '/catalog/$slug': typeof CatalogSlugRoute
+  '/catalog/': typeof CatalogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,19 +115,22 @@ export interface FileRouteTypes {
     | '/catalog'
     | '/contacts'
     | '/equipment'
+    | '/portfolio'
     | '/promotions'
     | '/reviews'
     | '/catalog/$slug'
+    | '/catalog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/calculator'
-    | '/catalog'
     | '/contacts'
     | '/equipment'
+    | '/portfolio'
     | '/promotions'
     | '/reviews'
     | '/catalog/$slug'
+    | '/catalog'
   id:
     | '__root__'
     | '/'
@@ -118,9 +138,11 @@ export interface FileRouteTypes {
     | '/catalog'
     | '/contacts'
     | '/equipment'
+    | '/portfolio'
     | '/promotions'
     | '/reviews'
     | '/catalog/$slug'
+    | '/catalog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,6 +151,7 @@ export interface RootRouteChildren {
   CatalogRoute: typeof CatalogRouteWithChildren
   ContactsRoute: typeof ContactsRoute
   EquipmentRoute: typeof EquipmentRoute
+  PortfolioRoute: typeof PortfolioRoute
   PromotionsRoute: typeof PromotionsRoute
   ReviewsRoute: typeof ReviewsRoute
 }
@@ -147,6 +170,13 @@ declare module '@tanstack/react-router' {
       path: '/promotions'
       fullPath: '/promotions'
       preLoaderRoute: typeof PromotionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolio': {
+      id: '/portfolio'
+      path: '/portfolio'
+      fullPath: '/portfolio'
+      preLoaderRoute: typeof PortfolioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/equipment': {
@@ -184,6 +214,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/catalog/': {
+      id: '/catalog/'
+      path: '/'
+      fullPath: '/catalog/'
+      preLoaderRoute: typeof CatalogIndexRouteImport
+      parentRoute: typeof CatalogRoute
+    }
     '/catalog/$slug': {
       id: '/catalog/$slug'
       path: '/$slug'
@@ -196,10 +233,12 @@ declare module '@tanstack/react-router' {
 
 interface CatalogRouteChildren {
   CatalogSlugRoute: typeof CatalogSlugRoute
+  CatalogIndexRoute: typeof CatalogIndexRoute
 }
 
 const CatalogRouteChildren: CatalogRouteChildren = {
   CatalogSlugRoute: CatalogSlugRoute,
+  CatalogIndexRoute: CatalogIndexRoute,
 }
 
 const CatalogRouteWithChildren =
@@ -211,6 +250,7 @@ const rootRouteChildren: RootRouteChildren = {
   CatalogRoute: CatalogRouteWithChildren,
   ContactsRoute: ContactsRoute,
   EquipmentRoute: EquipmentRoute,
+  PortfolioRoute: PortfolioRoute,
   PromotionsRoute: PromotionsRoute,
   ReviewsRoute: ReviewsRoute,
 }
