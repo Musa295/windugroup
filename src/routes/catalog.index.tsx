@@ -3,7 +3,7 @@ import { useState } from "react";
 import { products, type Product } from "@/lib/catalog";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
-export const Route = createFileRoute("/catalog")({
+export const Route = createFileRoute("/catalog/")({
   head: () => ({
     meta: [
       { title: "Каталог окон, дверей и балконов — Windu.Group" },
