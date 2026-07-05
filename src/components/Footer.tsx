@@ -19,6 +19,9 @@ export function Footer() {
             <a href={SITE.telegram} target="_blank" rel="noreferrer" className="grid h-10 w-10 place-items-center rounded-md bg-white/10 hover:bg-accent transition-colors" aria-label="Telegram">
               <Send className="h-5 w-5" />
             </a>
+            <a href={SITE.bip} target="_blank" rel="noreferrer" className="grid h-10 min-w-[2.5rem] place-items-center rounded-md bg-white/10 px-2 text-xs font-bold hover:bg-accent transition-colors" aria-label="BiP">
+              BiP
+            </a>
           </div>
         </div>
 
@@ -27,6 +30,7 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/" className="opacity-80 hover:opacity-100 hover:text-accent">Главная</Link></li>
             <li><Link to="/catalog" className="opacity-80 hover:opacity-100 hover:text-accent">Каталог</Link></li>
+            <li><Link to="/price-list" className="opacity-80 hover:opacity-100 hover:text-accent">Прайс-лист</Link></li>
             <li><Link to="/calculator" className="opacity-80 hover:opacity-100 hover:text-accent">Калькулятор</Link></li>
             <li><Link to="/promotions" className="opacity-80 hover:opacity-100 hover:text-accent">Акции</Link></li>
             <li><Link to="/portfolio" className="opacity-80 hover:opacity-100 hover:text-accent">Портфолио</Link></li>
