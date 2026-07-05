@@ -1,15 +1,27 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { z } from "zod";
 import { CallbackDialog } from "@/components/CallbackDialog";
 import { Button } from "@/components/ui/button";
 import { Calculator as CalcIcon, Info } from "lucide-react";
+import { getProduct } from "@/lib/catalog";
+
+const searchSchema = z.object({
+  product: z.string().optional(),
+  type: z.string().optional(),
+});
 
 export const Route = createFileRoute("/calculator")({
+  validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
       { title: "Калькулятор окон и дверей — Windu.Group" },
       { name: "description", content: "Рассчитайте предварительную стоимость окон, дверей и балконного остекления онлайн." },
+      { property: "og:title", content: "Калькулятор окон и дверей — Windu.Group" },
+      { property: "og:description", content: "Онлайн-расчёт стоимости окон, дверей и балконов за минуту." },
+      { property: "og:url", content: "https://windugroup.lovable.app/calculator" },
     ],
+    links: [{ rel: "canonical", href: "https://windugroup.lovable.app/calculator" }],
   }),
   component: CalculatorPage,
 });
@@ -31,17 +43,40 @@ const glassOptions = [
 const extras = [
   { id: "mosquito", label: "Москитная сетка (в подарок)", price: 0 },
   { id: "lamination", label: "Ламинация под дерево", price: 2500 },
-  { id: "install", label: "Монтаж (бесплатно по ЧР)", price: 0, checked: true },
+  { id: "install", label: "Монтаж (бесплатно по ЧР)", price: 0 },
   { id: "dismantle", label: "Демонтаж старой конструкции", price: 1500 },
 ];
 
+// Слаг товара → id типа в калькуляторе
+function slugToType(slug?: string): string | null {
+  if (!slug) return null;
+  const p = getProduct(slug);
+  if (!p) return null;
+  if (p.category === "Двери") return slug.includes("alyuminievye") ? "alu-door" : "pvc-door";
+  if (p.category === "Балконы") return "balcony";
+  if (p.category === "Окна") return slug.includes("alyuminievye") ? "alu-window" : "pvc-window";
+  return null;
+}
+
 function CalculatorPage() {
-  const [type, setType] = useState(productTypes[0].id);
+  const search = Route.useSearch();
+  const preselected =
+    slugToType(search.product) ??
+    (search.type && productTypes.find((p) => p.id === search.type)?.id) ??
+    productTypes[0].id;
+
+  const [type, setType] = useState(preselected);
   const [width, setWidth] = useState(1200);
   const [height, setHeight] = useState(1400);
   const [glass, setGlass] = useState(glassOptions[1].id);
   const [selected, setSelected] = useState<string[]>(["mosquito", "install"]);
   const [qty, setQty] = useState(1);
+
+  // Обновляем тип, если пользователь переходит с параметром на уже открытой странице
+  useEffect(() => {
+    if (preselected) setType(preselected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search.product, search.type]);
 
   const product = productTypes.find((p) => p.id === type)!;
   const glassOpt = glassOptions.find((g) => g.id === glass)!;
@@ -52,7 +87,7 @@ function CalculatorPage() {
     const withGlass = base * glassOpt.multiplier;
     const extrasSum = extras.filter((e) => selected.includes(e.id)).reduce((s, e) => s + e.price, 0);
     return Math.round((withGlass + extrasSum) * qty);
-  }, [type, width, height, glass, selected, qty, product, glassOpt]);
+  }, [width, height, selected, qty, product, glassOpt]);
 
   const toggle = (id: string) =>
     setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));

@@ -8,4 +8,6 @@ export const SITE = {
   address: "Чеченская Республика, г. Грозный",
   whatsapp: "https://wa.me/79280000000",
   telegram: "https://t.me/windu_group",
+  bip: "https://bip.ai/im?to=79280000000",
+  origin: "https://windugroup.lovable.app",
 };
