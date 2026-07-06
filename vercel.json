@@ -3,17 +3,51 @@
   "buildCommand": "vite build",
   "outputDirectory": ".output/public",
   "framework": null,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    { "source": "/((?!assets/|_build/|favicon\\.png|robots\\.txt|sitemap\\.xml).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
     },
     {
-      "source": "/(favicon.png|robots.txt|sitemap.xml)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      "source": "/_build/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600" },
+        { "key": "Content-Type", "value": "application/xml; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/favicon.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
     }
   ]
 }
