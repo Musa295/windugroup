@@ -109,7 +109,8 @@ const benefits = [
 ];
 
 function SubPage() {
-  const { cat, item } = Route.useLoaderData();
+  const data = Route.useLoaderData() as { cat: (typeof serviceCategories)[number]; item: SubService };
+  const { cat, item } = data;
   const faq = faqTemplate(item.title, cat.title);
   const siblings = cat.items.filter((i: SubService) => i.slug !== item.slug);
 
