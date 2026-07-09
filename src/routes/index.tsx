@@ -1,14 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { CallbackDialog } from "@/components/CallbackDialog";
+import { HeroSlideshow } from "@/components/HeroSlideshow";
 import { works } from "@/lib/works";
 import { reviews } from "@/lib/reviews";
 import { products } from "@/lib/catalog";
 import {
   ShieldCheck, Ruler, Truck, Gift, Percent, Wrench,
-  ArrowRight, Star, Factory, Timer, BadgeCheck, Calculator,
+  ArrowRight, Star, Factory, Timer, BadgeCheck,
 } from "lucide-react";
-import hero from "@/assets/hero.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,60 +34,8 @@ const advantages = [
 function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        <div className="absolute inset-0 opacity-25" style={{ backgroundImage: "radial-gradient(circle at 20% 10%, oklch(0.68 0.16 50) 0%, transparent 40%), radial-gradient(circle at 90% 90%, oklch(0.5 0.15 220) 0%, transparent 50%)" }} />
-        <div className="relative mx-auto grid max-w-7xl gap-12 px-4 py-20 md:py-28 lg:grid-cols-2 lg:items-center">
-          <div className="text-white">
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-accent" /> Производство в Чеченской Республике
-            </div>
-            <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
-              Окна, двери и балконы из <span className="text-accent">ПВХ и алюминия</span>
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/80">
-              Изготавливаем, доставим и установим под ключ по всей ЧР. Беспроцентная рассрочка, бесплатный замер и монтаж.
-              <span className="block mt-2 font-semibold text-white">Надёжно · современно · с гарантией.</span>
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <CallbackDialog>
-                <Button variant="hero" size="lg" className="h-12 px-7 text-base">
-                  Бесплатный замер <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
-              </CallbackDialog>
-              <Button asChild variant="outline" size="lg" className="h-12 border-white/30 bg-white/5 px-7 text-base text-white hover:bg-white/10 hover:text-white">
-                <Link to="/calculator"><Calculator className="mr-1 h-4 w-4" />Калькулятор</Link>
-              </Button>
-            </div>
-            <div className="mt-10 grid grid-cols-3 gap-6 border-t border-white/15 pt-6 text-white">
-              <div><div className="font-display text-3xl font-bold">15+</div><div className="text-xs uppercase tracking-wider opacity-70">лет опыта</div></div>
-              <div><div className="font-display text-3xl font-bold">1200+</div><div className="text-xs uppercase tracking-wider opacity-70">объектов сдано</div></div>
-              <div><div className="font-display text-3xl font-bold">10 лет</div><div className="text-xs uppercase tracking-wider opacity-70">гарантия</div></div>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10">
-              <img src={hero} alt="Современные окна и двери" width={1600} height={1200} className="aspect-[4/3] w-full object-cover" />
-            </div>
-            <div className="absolute -bottom-6 -left-6 hidden rounded-xl bg-white p-4 shadow-2xl md:block">
-              <div className="flex items-center gap-3">
-                <div className="grid h-12 w-12 place-items-center rounded-full bg-accent/15 text-accent">
-                  <Gift className="h-6 w-6" />
-                </div>
-                <div>
-                  <div className="font-display text-sm font-bold text-foreground">Москитные сетки</div>
-                  <div className="text-xs text-muted-foreground">в подарок к каждому заказу</div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -top-4 -right-4 hidden rounded-xl bg-accent p-4 shadow-2xl md:block">
-              <div className="font-display text-xs font-bold uppercase tracking-wider text-accent-foreground">Рассрочка</div>
-              <div className="font-display text-3xl font-bold text-accent-foreground">0%</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* HERO — слайд-шоу, текст поверх фотографий */}
+      <HeroSlideshow />
 
       {/* ADVANTAGES */}
       <section className="mx-auto max-w-7xl px-4 py-20">
