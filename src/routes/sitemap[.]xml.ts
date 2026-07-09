@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { products } from "@/lib/catalog";
+import { serviceCategories } from "@/lib/services";
 import { SITE } from "@/lib/site";
 
 const BASE_URL = SITE.origin;
@@ -25,10 +26,17 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries = [
           ...staticPaths,
           ...products.map((p) => ({ path: `/catalog/${p.slug}`, changefreq: "monthly", priority: "0.7" })),
+          ...serviceCategories.flatMap((cat) =>
+            cat.items.map((s) => ({
+              path: `/services/${cat.slug}/${s.slug}`,
+              changefreq: "monthly",
+              priority: "0.75",
+            })),
+          ),
         ];
         const urls = entries.map(
           (e) =>
-            `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`
+            `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
         );
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>`;
         return new Response(xml, {
