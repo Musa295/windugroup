@@ -8,8 +8,7 @@ const BASE_URL = SITE.origin;
 const staticPaths = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/about", changefreq: "monthly", priority: "0.8" },
-  { path: "/services", changefreq: "weekly", priority: "0.9" },
-  { path: "/catalog", changefreq: "weekly", priority: "0.9" },
+  { path: "/catalog", changefreq: "weekly", priority: "0.95" },
   { path: "/calculator", changefreq: "monthly", priority: "0.8" },
   { path: "/price-list", changefreq: "weekly", priority: "0.8" },
   { path: "/promotions", changefreq: "weekly", priority: "0.7" },
@@ -28,9 +27,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...products.map((p) => ({ path: `/catalog/${p.slug}`, changefreq: "monthly", priority: "0.7" })),
           ...serviceCategories.flatMap((cat) =>
             cat.items.map((s) => ({
-              path: `/services/${cat.slug}/${s.slug}`,
+              path: `/catalog/${cat.slug}/${s.slug}`,
               changefreq: "monthly",
-              priority: "0.75",
+              priority: "0.8",
             })),
           ),
         ];

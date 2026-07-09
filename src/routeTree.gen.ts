@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PromotionsRouteImport } from './routes/promotions'
 import { Route as PriceListRouteImport } from './routes/price-list'
@@ -24,7 +23,6 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
-import { Route as ServicesCategorySubRouteImport } from './routes/services.$category.$sub'
 import { Route as ApiPublicLeadRouteImport } from './routes/api/public/lead'
 
 const ThankYouRoute = ThankYouRouteImport.update({
@@ -35,11 +33,6 @@ const ThankYouRoute = ThankYouRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -102,11 +95,6 @@ const CatalogSlugRoute = CatalogSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => CatalogRoute,
 } as any)
-const ServicesCategorySubRoute = ServicesCategorySubRouteImport.update({
-  id: '/$category/$sub',
-  path: '/$category/$sub',
-  getParentRoute: () => ServicesRoute,
-} as any)
 const ApiPublicLeadRoute = ApiPublicLeadRouteImport.update({
   id: '/api/public/lead',
   path: '/api/public/lead',
@@ -124,13 +112,11 @@ export interface FileRoutesByFullPath {
   '/price-list': typeof PriceListRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thank-you': typeof ThankYouRoute
   '/catalog/$slug': typeof CatalogSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/api/public/lead': typeof ApiPublicLeadRoute
-  '/services/$category/$sub': typeof ServicesCategorySubRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,13 +128,11 @@ export interface FileRoutesByTo {
   '/price-list': typeof PriceListRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thank-you': typeof ThankYouRoute
   '/catalog/$slug': typeof CatalogSlugRoute
   '/catalog': typeof CatalogIndexRoute
   '/api/public/lead': typeof ApiPublicLeadRoute
-  '/services/$category/$sub': typeof ServicesCategorySubRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -162,13 +146,11 @@ export interface FileRoutesById {
   '/price-list': typeof PriceListRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thank-you': typeof ThankYouRoute
   '/catalog/$slug': typeof CatalogSlugRoute
   '/catalog/': typeof CatalogIndexRoute
   '/api/public/lead': typeof ApiPublicLeadRoute
-  '/services/$category/$sub': typeof ServicesCategorySubRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -183,13 +165,11 @@ export interface FileRouteTypes {
     | '/price-list'
     | '/promotions'
     | '/reviews'
-    | '/services'
     | '/sitemap.xml'
     | '/thank-you'
     | '/catalog/$slug'
     | '/catalog/'
     | '/api/public/lead'
-    | '/services/$category/$sub'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -201,13 +181,11 @@ export interface FileRouteTypes {
     | '/price-list'
     | '/promotions'
     | '/reviews'
-    | '/services'
     | '/sitemap.xml'
     | '/thank-you'
     | '/catalog/$slug'
     | '/catalog'
     | '/api/public/lead'
-    | '/services/$category/$sub'
   id:
     | '__root__'
     | '/'
@@ -220,13 +198,11 @@ export interface FileRouteTypes {
     | '/price-list'
     | '/promotions'
     | '/reviews'
-    | '/services'
     | '/sitemap.xml'
     | '/thank-you'
     | '/catalog/$slug'
     | '/catalog/'
     | '/api/public/lead'
-    | '/services/$category/$sub'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -240,7 +216,6 @@ export interface RootRouteChildren {
   PriceListRoute: typeof PriceListRoute
   PromotionsRoute: typeof PromotionsRoute
   ReviewsRoute: typeof ReviewsRoute
-  ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ThankYouRoute: typeof ThankYouRoute
   ApiPublicLeadRoute: typeof ApiPublicLeadRoute
@@ -260,13 +235,6 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -353,13 +321,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CatalogSlugRouteImport
       parentRoute: typeof CatalogRoute
     }
-    '/services/$category/$sub': {
-      id: '/services/$category/$sub'
-      path: '/$category/$sub'
-      fullPath: '/services/$category/$sub'
-      preLoaderRoute: typeof ServicesCategorySubRouteImport
-      parentRoute: typeof ServicesRoute
-    }
     '/api/public/lead': {
       id: '/api/public/lead'
       path: '/api/public/lead'
@@ -383,18 +344,6 @@ const CatalogRouteChildren: CatalogRouteChildren = {
 const CatalogRouteWithChildren =
   CatalogRoute._addFileChildren(CatalogRouteChildren)
 
-interface ServicesRouteChildren {
-  ServicesCategorySubRoute: typeof ServicesCategorySubRoute
-}
-
-const ServicesRouteChildren: ServicesRouteChildren = {
-  ServicesCategorySubRoute: ServicesCategorySubRoute,
-}
-
-const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
-  ServicesRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -406,7 +355,6 @@ const rootRouteChildren: RootRouteChildren = {
   PriceListRoute: PriceListRoute,
   PromotionsRoute: PromotionsRoute,
   ReviewsRoute: ReviewsRoute,
-  ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ThankYouRoute: ThankYouRoute,
   ApiPublicLeadRoute: ApiPublicLeadRoute,
@@ -414,13 +362,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
