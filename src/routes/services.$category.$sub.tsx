@@ -238,7 +238,7 @@ function SubPage() {
         <p className="mt-2 max-w-2xl text-muted-foreground">Выберите тип, оставьте телефон — пришлём точный расчёт и запишем на бесплатный замер.</p>
         <QuickLeadForm
           categoryTitle={cat.title}
-          productTypes={cat.items.map((i) => ({ slug: i.slug, title: i.title }))}
+          productTypes={cat.items.map((i: SubService) => ({ slug: i.slug, title: i.title }))}
           defaultType={item.title}
         />
       </section>
@@ -249,7 +249,7 @@ function SubPage() {
           <div className="text-xs uppercase tracking-widest text-accent">Смотрите также в категории</div>
           <h2 className="mt-2 font-display text-2xl font-bold md:text-3xl">Другие виды: {cat.title}</h2>
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {siblings.map((s) => (
+            {siblings.map((s: SubService) => (
               <Link
                 key={s.slug}
                 to="/services/$category/$sub"
