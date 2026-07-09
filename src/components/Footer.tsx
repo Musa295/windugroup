@@ -26,14 +26,13 @@ export function Footer() {
           <h4 className="font-display text-sm font-semibold uppercase tracking-wider opacity-70">Навигация</h4>
           <ul className="mt-4 space-y-2 text-sm">
             <li><Link to="/" className="opacity-80 hover:opacity-100 hover:text-accent">Главная</Link></li>
-            <li><Link to="/about" className="opacity-80 hover:opacity-100 hover:text-accent">О нас</Link></li>
-            <li><Link to="/services" className="opacity-80 hover:opacity-100 hover:text-accent">Услуги</Link></li>
             <li><Link to="/catalog" className="opacity-80 hover:opacity-100 hover:text-accent">Каталог</Link></li>
-            <li><Link to="/price-list" className="opacity-80 hover:opacity-100 hover:text-accent">Прайс-лист</Link></li>
             <li><Link to="/calculator" className="opacity-80 hover:opacity-100 hover:text-accent">Калькулятор</Link></li>
-            <li><Link to="/promotions" className="opacity-80 hover:opacity-100 hover:text-accent">Акции</Link></li>
+            <li><Link to="/price-list" className="opacity-80 hover:opacity-100 hover:text-accent">Прайс-лист</Link></li>
             <li><Link to="/portfolio" className="opacity-80 hover:opacity-100 hover:text-accent">Портфолио</Link></li>
+            <li><Link to="/promotions" className="opacity-80 hover:opacity-100 hover:text-accent">Акции</Link></li>
             <li><Link to="/reviews" className="opacity-80 hover:opacity-100 hover:text-accent">Отзывы</Link></li>
+            <li><Link to="/about" className="opacity-80 hover:opacity-100 hover:text-accent">О нас</Link></li>
             <li><Link to="/contacts" className="opacity-80 hover:opacity-100 hover:text-accent">Контакты</Link></li>
           </ul>
         </div>
