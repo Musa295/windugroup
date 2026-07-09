@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { serviceCategories } from "@/lib/services";
+import { serviceCategories, type SubService } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { CallbackDialog } from "@/components/CallbackDialog";
@@ -120,7 +120,7 @@ function SubPage() {
   const { cat, item } = Route.useLoaderData();
   const params = Route.useParams();
   const faq = faqTemplate(item.title, cat.title);
-  const siblings = cat.items.filter((i) => i.slug !== item.slug);
+  const siblings = cat.items.filter((i: SubService) => i.slug !== item.slug);
 
   return (
     <>
