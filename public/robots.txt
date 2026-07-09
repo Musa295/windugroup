@@ -3,4 +3,11 @@ Allow: /
 Disallow: /thank-you
 Disallow: /api/
 
+User-agent: Yandex
+Allow: /
+Disallow: /thank-you
+Disallow: /api/
+Clean-param: utm_source&utm_medium&utm_campaign&utm_term&utm_content
+
+Host: windugroup.lovable.app
 Sitemap: https://windugroup.lovable.app/sitemap.xml

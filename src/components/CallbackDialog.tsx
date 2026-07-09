@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
@@ -20,15 +20,42 @@ const schema = z.object({
   message: z.string().trim().max(500).optional(),
 });
 
+function useCaptcha() {
+  const [pair, setPair] = useState<[number, number]>([0, 0]);
+  const regen = () => setPair([Math.floor(Math.random() * 8) + 2, Math.floor(Math.random() * 8) + 1]);
+  useEffect(regen, []);
+  const answer = useMemo(() => pair[0] + pair[1], [pair]);
+  return { question: `${pair[0]} + ${pair[1]}`, answer, regen };
+}
+
 export function CallbackDialog({ children, defaultTopic }: Props) {
   const [open, setOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const captcha = useCaptcha();
+
+  useEffect(() => { if (open) captcha.regen(); }, [open]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
+
+    // Honeypot: скрытое поле должно быть пустым (боты его заполнят)
+    if (String(fd.get("website") ?? "").trim() !== "") {
+      toast.success("Заявка принята!");
+      setOpen(false);
+      return;
+    }
+
+    // Простая математическая капча
+    const captchaValue = Number(fd.get("captcha"));
+    if (!Number.isFinite(captchaValue) || captchaValue !== captcha.answer) {
+      toast.error("Неверный ответ на проверку. Попробуйте ещё раз.");
+      captcha.regen();
+      return;
+    }
+
     const parsed = schema.safeParse({
       name: fd.get("name"),
       phone: fd.get("phone"),
@@ -40,12 +67,25 @@ export function CallbackDialog({ children, defaultTopic }: Props) {
     }
     setSubmitting(true);
     try {
-      // Отправляем заявку на серверный роут (Telegram + Email — включаются после подключения Cloud/Resend/Telegram)
-      await fetch("/api/public/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...parsed.data, topic: defaultTopic ?? "Обратный звонок" }),
-      }).catch(() => null);
+      // Vercel serverless (/api/lead) — работает и на Lovable-хостинге (тот же путь у публичного роута ниже)
+      const payload = { ...parsed.data, topic: defaultTopic ?? "Обратный звонок" };
+      const endpoints = ["/api/lead", "/api/public/lead"];
+      let ok = false;
+      for (const url of endpoints) {
+        try {
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          if (res.ok) { ok = true; break; }
+        } catch { /* попробуем следующий */ }
+      }
+      if (!ok) {
+        // Fallback: открываем WhatsApp с готовым текстом
+        const text = encodeURIComponent(`Здравствуйте! Заявка с сайта.\nИмя: ${parsed.data.name}\nТелефон: ${parsed.data.phone}\nКомментарий: ${parsed.data.message ?? "-"}`);
+        window.open(`https://wa.me/79380044040?text=${text}`, "_blank");
+      }
       toast.success("Заявка принята!");
       setOpen(false);
       form.reset();
@@ -74,19 +114,31 @@ export function CallbackDialog({ children, defaultTopic }: Props) {
         <form onSubmit={onSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="cb-name">Имя</Label>
-            <Input id="cb-name" name="name" required placeholder="Ваше имя" maxLength={80} />
+            <Input id="cb-name" name="name" required placeholder="Ваше имя" maxLength={80} className="h-12 text-base" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="cb-phone">Телефон</Label>
-            <Input id="cb-phone" name="phone" required type="tel" placeholder="+7 (___) ___-__-__" maxLength={30} />
+            <Input id="cb-phone" name="phone" required type="tel" inputMode="tel" autoComplete="tel" placeholder="+7 (___) ___-__-__" maxLength={30} className="h-12 text-base" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="cb-msg">Комментарий</Label>
-            <Textarea id="cb-msg" name="message" defaultValue={defaultTopic} placeholder="Что вас интересует?" rows={3} maxLength={500} />
+            <Textarea id="cb-msg" name="message" defaultValue={defaultTopic} placeholder="Что вас интересует?" rows={3} maxLength={500} className="text-base" />
           </div>
-          <Button type="submit" variant="accent" size="lg" className="w-full" disabled={submitting}>
+
+          {/* honeypot — не показываем людям */}
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
+          <div className="space-y-2">
+            <Label htmlFor="cb-captcha">Проверка: сколько будет {captcha.question}?</Label>
+            <Input id="cb-captcha" name="captcha" required type="number" inputMode="numeric" placeholder="Ответ" className="h-12 text-base" />
+          </div>
+
+          <Button type="submit" variant="accent" size="lg" className="h-12 w-full text-base" disabled={submitting}>
             {submitting ? "Отправляем…" : "Отправить заявку"}
           </Button>
+          <p className="text-[11px] text-muted-foreground text-center">
+            Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
+          </p>
         </form>
       </DialogContent>
     </Dialog>

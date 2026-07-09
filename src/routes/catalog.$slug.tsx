@@ -129,8 +129,8 @@ function ProductPage() {
             <a href={SITE.telegram} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 hover:border-accent">
               <Send className="h-3.5 w-3.5 text-[#229ED9]" /> Telegram
             </a>
-            <a href={SITE.bip} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 hover:border-accent">
-              BiP
+            <a href={SITE.phoneHref} className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 hover:border-accent">
+              {SITE.phone}
             </a>
           </div>
 
