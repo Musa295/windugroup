@@ -8,6 +8,8 @@ import slide2 from "@/assets/hero-slides/slide2.png.asset.json";
 import slide3 from "@/assets/hero-slides/slide3.png.asset.json";
 import slide4 from "@/assets/hero-slides/slide4.png.asset.json";
 
+const SLIDE_MS = 1800;
+
 const slides = [
   { url: slide1.url, alt: "Панорамные окна и терраса дома премиум-класса вечером" },
   { url: slide2.url, alt: "Раздвижные алюминиевые двери с видом на горы и озеро" },
@@ -19,24 +21,35 @@ export function HeroSlideshow() {
   const [i, setI] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setI((v) => (v + 1) % slides.length), 5500);
+    const t = setInterval(() => setI((v) => (v + 1) % slides.length), SLIDE_MS);
     return () => clearInterval(t);
   }, []);
 
+  // Prefetch next slide for smoother transitions on mobile
+  useEffect(() => {
+    const next = (i + 1) % slides.length;
+    const img = new Image();
+    img.decoding = "async";
+    img.src = slides[next].url;
+  }, [i]);
+
   return (
     <section className="relative overflow-hidden">
-      <div className="relative h-[92vh] min-h-[560px] max-h-[820px] w-full">
+      <div className="relative h-[86vh] min-h-[520px] max-h-[820px] w-full sm:h-[92vh]">
         {slides.map((s, idx) => (
           <img
             key={s.url}
             src={s.url}
             alt={s.alt}
             loading={idx === 0 ? "eager" : "lazy"}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1400ms] ease-in-out ${idx === i ? "opacity-100" : "opacity-0"}`}
+            fetchPriority={idx === 0 ? "high" : "low"}
+            decoding="async"
+            sizes="100vw"
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out will-change-[opacity] ${idx === i ? "opacity-100" : "opacity-0"}`}
           />
         ))}
         {/* Overlays for legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
         {/* Text content OVER photos */}
