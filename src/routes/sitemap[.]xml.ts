@@ -6,6 +6,8 @@ const BASE_URL = SITE.origin;
 
 const staticPaths = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/about", changefreq: "monthly", priority: "0.8" },
+  { path: "/services", changefreq: "weekly", priority: "0.9" },
   { path: "/catalog", changefreq: "weekly", priority: "0.9" },
   { path: "/calculator", changefreq: "monthly", priority: "0.8" },
   { path: "/price-list", changefreq: "weekly", priority: "0.8" },

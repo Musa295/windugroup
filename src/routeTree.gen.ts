@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as PromotionsRouteImport } from './routes/promotions'
 import { Route as PriceListRouteImport } from './routes/price-list'
@@ -19,6 +20,7 @@ import { Route as EquipmentRouteImport } from './routes/equipment'
 import { Route as ContactsRouteImport } from './routes/contacts'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as CalculatorRouteImport } from './routes/calculator'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CatalogIndexRouteImport } from './routes/catalog.index'
 import { Route as CatalogSlugRouteImport } from './routes/catalog.$slug'
@@ -32,6 +34,11 @@ const ThankYouRoute = ThankYouRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewsRoute = ReviewsRouteImport.update({
@@ -74,6 +81,11 @@ const CalculatorRoute = CalculatorRouteImport.update({
   path: '/calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -97,6 +109,7 @@ const ApiPublicLeadRoute = ApiPublicLeadRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/calculator': typeof CalculatorRoute
   '/catalog': typeof CatalogRouteWithChildren
   '/contacts': typeof ContactsRoute
@@ -105,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/price-list': typeof PriceListRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
+  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thank-you': typeof ThankYouRoute
   '/catalog/$slug': typeof CatalogSlugRoute
@@ -113,6 +127,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/calculator': typeof CalculatorRoute
   '/contacts': typeof ContactsRoute
   '/equipment': typeof EquipmentRoute
@@ -120,6 +135,7 @@ export interface FileRoutesByTo {
   '/price-list': typeof PriceListRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
+  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thank-you': typeof ThankYouRoute
   '/catalog/$slug': typeof CatalogSlugRoute
@@ -129,6 +145,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/calculator': typeof CalculatorRoute
   '/catalog': typeof CatalogRouteWithChildren
   '/contacts': typeof ContactsRoute
@@ -137,6 +154,7 @@ export interface FileRoutesById {
   '/price-list': typeof PriceListRoute
   '/promotions': typeof PromotionsRoute
   '/reviews': typeof ReviewsRoute
+  '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thank-you': typeof ThankYouRoute
   '/catalog/$slug': typeof CatalogSlugRoute
@@ -147,6 +165,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/calculator'
     | '/catalog'
     | '/contacts'
@@ -155,6 +174,7 @@ export interface FileRouteTypes {
     | '/price-list'
     | '/promotions'
     | '/reviews'
+    | '/services'
     | '/sitemap.xml'
     | '/thank-you'
     | '/catalog/$slug'
@@ -163,6 +183,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/calculator'
     | '/contacts'
     | '/equipment'
@@ -170,6 +191,7 @@ export interface FileRouteTypes {
     | '/price-list'
     | '/promotions'
     | '/reviews'
+    | '/services'
     | '/sitemap.xml'
     | '/thank-you'
     | '/catalog/$slug'
@@ -178,6 +200,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/calculator'
     | '/catalog'
     | '/contacts'
@@ -186,6 +209,7 @@ export interface FileRouteTypes {
     | '/price-list'
     | '/promotions'
     | '/reviews'
+    | '/services'
     | '/sitemap.xml'
     | '/thank-you'
     | '/catalog/$slug'
@@ -195,6 +219,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CalculatorRoute: typeof CalculatorRoute
   CatalogRoute: typeof CatalogRouteWithChildren
   ContactsRoute: typeof ContactsRoute
@@ -203,6 +228,7 @@ export interface RootRouteChildren {
   PriceListRoute: typeof PriceListRoute
   PromotionsRoute: typeof PromotionsRoute
   ReviewsRoute: typeof ReviewsRoute
+  ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ThankYouRoute: typeof ThankYouRoute
   ApiPublicLeadRoute: typeof ApiPublicLeadRoute
@@ -222,6 +248,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reviews': {
@@ -280,6 +313,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -326,6 +366,7 @@ const CatalogRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CalculatorRoute: CalculatorRoute,
   CatalogRoute: CatalogRouteWithChildren,
   ContactsRoute: ContactsRoute,
@@ -334,6 +375,7 @@ const rootRouteChildren: RootRouteChildren = {
   PriceListRoute: PriceListRoute,
   PromotionsRoute: PromotionsRoute,
   ReviewsRoute: ReviewsRoute,
+  ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ThankYouRoute: ThankYouRoute,
   ApiPublicLeadRoute: ApiPublicLeadRoute,

@@ -8,12 +8,13 @@ import { Logo } from "./Logo";
 
 const nav = [
   { to: "/", label: "Главная" },
+  { to: "/about", label: "О нас" },
+  { to: "/services", label: "Услуги" },
   { to: "/catalog", label: "Каталог" },
   { to: "/price-list", label: "Прайс" },
   { to: "/calculator", label: "Калькулятор" },
   { to: "/promotions", label: "Акции" },
   { to: "/portfolio", label: "Портфолио" },
-  { to: "/equipment", label: "Оборудование" },
   { to: "/reviews", label: "Отзывы" },
   { to: "/contacts", label: "Контакты" },
 ] as const;
