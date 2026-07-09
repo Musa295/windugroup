@@ -106,33 +106,61 @@ function HomePage() {
         </div>
       </section>
 
-      {/* CATEGORIES */}
-      <section className="bg-surface py-20">
+      {/* SERVICES */}
+      <section className="bg-surface py-24">
         <div className="mx-auto max-w-7xl px-4">
           <div className="flex items-end justify-between gap-4">
             <div>
-              <div className="text-xs uppercase tracking-widest text-accent">Каталог</div>
-              <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Что мы изготавливаем</h2>
+              <div className="text-xs uppercase tracking-widest text-accent">Услуги</div>
+              <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Что мы делаем в Грозном и по ЧР</h2>
+              <p className="mt-3 max-w-2xl text-muted-foreground">
+                Полный цикл под ключ: замер, производство, доставка и монтаж. Гарантия до 10 лет.
+              </p>
             </div>
             <Link to="/catalog" className="hidden text-sm font-medium text-accent hover:underline md:inline">Весь каталог →</Link>
           </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {products.slice(0, 6).map((p) => (
-              <Link to="/catalog/$slug" params={{ slug: p.slug }} key={p.slug} className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src={p.image} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute right-3 top-3 rounded-full bg-accent px-3 py-1 text-[11px] font-semibold text-accent-foreground">{p.priceFrom}</div>
-                </div>
-                <div className="p-5">
-                  <h3 className="font-display text-lg font-semibold">{p.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{p.short}</p>
-                  <div className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent">
-                    Подробнее <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              { slug: "okna-pvh", title: "Пластиковые окна", desc: "Энергосберегающие ПВХ окна для квартир и домов." },
+              { slug: "alyuminievye-okna", title: "Алюминиевые окна", desc: "Тёплые и холодные системы любой сложности." },
+              { slug: "alyuminievye-dveri", title: "Входные двери", desc: "Алюминиевые входные группы для дома и бизнеса." },
+              { slug: "dveri-pvh", title: "Балконные блоки", desc: "Дверь + окно из ПВХ для выхода на балкон и лоджию." },
+              { slug: "osteklenie-balkonov", title: "Остекление балконов", desc: "Тёплое и холодное остекление под ключ." },
+              { slug: "fasady-vitrazhi", title: "Витражи и входные группы", desc: "Фасадное остекление для магазинов, офисов, кафе." },
+            ].map((s) => {
+              const p = products.find((x) => x.slug === s.slug);
+              if (!p) return null;
+              return (
+                <Link
+                  to="/catalog/$slug"
+                  params={{ slug: p.slug }}
+                  key={p.slug}
+                  className="group overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)]"
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
+                    <img src={p.image} alt={s.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 text-[11px] font-semibold text-accent-foreground shadow-md">{p.priceFrom}</div>
+                    <div className="absolute inset-x-5 bottom-4 text-white">
+                      <h3 className="font-display text-xl font-bold drop-shadow">{s.title}</h3>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                  <div className="p-6">
+                    <p className="text-sm text-muted-foreground">{s.desc}</p>
+                    <div className="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                      Подробнее <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 flex justify-center md:hidden">
+            <Button asChild variant="outline" size="lg" className="h-12">
+              <Link to="/catalog">Весь каталог</Link>
+            </Button>
           </div>
         </div>
       </section>
