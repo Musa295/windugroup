@@ -118,7 +118,6 @@ const benefits = [
 
 function SubPage() {
   const { cat, item } = Route.useLoaderData();
-  const params = Route.useParams();
   const faq = faqTemplate(item.title, cat.title);
   const siblings = cat.items.filter((i: SubService) => i.slug !== item.slug);
 
