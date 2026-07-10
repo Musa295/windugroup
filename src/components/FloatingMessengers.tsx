@@ -1,10 +1,12 @@
-import { MessageCircle, Send, Phone } from "lucide-react";
+import { MessageCircle, Send, Phone, Instagram, ShoppingBag } from "lucide-react";
 import { SITE } from "@/lib/site";
 
 export function FloatingMessengers() {
   const items = [
     { href: SITE.whatsapp, label: "WhatsApp", icon: MessageCircle, bg: "bg-[#25D366]" },
     { href: SITE.telegram, label: "Telegram", icon: Send, bg: "bg-[#229ED9]" },
+    { href: SITE.instagram, label: "Instagram", icon: Instagram, bg: "bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF]" },
+    { href: SITE.avito, label: "Avito", icon: ShoppingBag, bg: "bg-[#00AAFF]" },
     { href: SITE.phoneHref, label: "Позвонить", icon: Phone, bg: "bg-accent" },
   ];
   return (
@@ -16,9 +18,9 @@ export function FloatingMessengers() {
           target={i.href.startsWith("tel:") ? undefined : "_blank"}
           rel="noreferrer"
           aria-label={i.label}
-          className={`grid h-14 w-14 place-items-center rounded-full text-white shadow-xl ring-2 ring-white/30 transition-transform hover:scale-110 ${i.bg}`}
+          className={`grid h-12 w-12 place-items-center rounded-full text-white shadow-xl ring-2 ring-white/30 transition-transform hover:scale-110 ${i.bg}`}
         >
-          <i.icon className="h-6 w-6" />
+          <i.icon className="h-5 w-5" />
         </a>
       ))}
     </div>
