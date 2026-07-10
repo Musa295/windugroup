@@ -161,7 +161,7 @@ function AboutPage() {
           <div className="flex justify-center gap-1 text-accent">
             {Array.from({ length: 5 }).map((_, k) => <Star key={k} className="h-5 w-5 fill-current" />)}
           </div>
-          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Рейтинг 4.9 из 5 · более 300 отзывов</h2>
+          <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">Рейтинг 4.9 из 5 · отзывы клиентов</h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
             Мы работаем на репутацию — 8 из 10 наших клиентов приходят по рекомендации.
           </p>
