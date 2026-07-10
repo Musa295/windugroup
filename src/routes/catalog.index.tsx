@@ -166,7 +166,7 @@ function CatalogPage() {
 
       {/* Categories */}
       <section className="mx-auto max-w-7xl space-y-16 px-4 py-16">
-        {visible.map((cat) => (
+        {filtered.map((cat) => (
           <div key={cat.slug} id={cat.slug} className="scroll-mt-36">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>
