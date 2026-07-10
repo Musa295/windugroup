@@ -49,6 +49,8 @@ export function Footer() {
             <li><a href={SITE.phoneHref} className="flex items-center gap-2 text-base font-semibold hover:text-accent"><Phone className="h-4 w-4 text-accent" />{SITE.phone}</a></li>
             <li><a href={SITE.whatsapp} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent"><MessageCircle className="h-4 w-4 text-accent" />WhatsApp</a></li>
             <li><a href={SITE.telegram} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent"><Send className="h-4 w-4 text-accent" />Telegram</a></li>
+            <li><a href={SITE.instagram} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent"><Instagram className="h-4 w-4 text-accent" />Instagram: vindu.group</a></li>
+            <li><a href={SITE.avito} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-accent"><ShoppingBag className="h-4 w-4 text-accent" />Avito: магазин Windu.Group</a></li>
             <li><a href={SITE.emailHref} className="flex items-center gap-2 hover:text-accent"><Mail className="h-4 w-4 text-accent" />{SITE.email}</a></li>
             <li className="flex items-start gap-2 opacity-90"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />{SITE.address}</li>
             <li className="flex items-start gap-2 opacity-90"><Clock className="mt-0.5 h-4 w-4 shrink-0 text-accent" />{SITE.hours}</li>
