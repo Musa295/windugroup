@@ -28,10 +28,15 @@ export const Route = createFileRoute("/calculator")({
 
 const productTypes = [
   { id: "pvc-window", label: "Окно ПВХ", base: 7900 },
+  { id: "pvc-panoramic", label: "Панорамное окно ПВХ", base: 9200 },
   { id: "alu-window", label: "Алюминиевое окно", base: 9500 },
+  { id: "alu-panoramic", label: "Панорамное алюминиевое окно", base: 11500 },
   { id: "pvc-door", label: "Дверь ПВХ", base: 18900, fixed: true },
   { id: "alu-door", label: "Алюминиевая дверь", base: 28500, fixed: true },
-  { id: "balcony", label: "Остекление балкона", base: 11500 },
+  { id: "entrance-group", label: "Входная группа", base: 42000, fixed: true },
+  { id: "vitrage", label: "Витраж / фасадное остекление", base: 13500 },
+  { id: "balcony", label: "Остекление балкона (тёплое)", base: 11500 },
+  { id: "balcony-cold", label: "Остекление балкона (холодное)", base: 7800 },
 ];
 
 const glassOptions = [
