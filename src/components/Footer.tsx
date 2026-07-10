@@ -12,12 +12,18 @@ export function Footer() {
           <p className="mt-4 text-sm opacity-80">
             Производство и установка окон, дверей и балконных систем из ПВХ и алюминия в Чеченской Республике с 2018 года.
           </p>
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             <a href={SITE.whatsapp} target="_blank" rel="noreferrer" className="flex h-11 items-center gap-2 rounded-md bg-[#25D366] px-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity" aria-label="WhatsApp">
               <MessageCircle className="h-4 w-4" /> WhatsApp
             </a>
             <a href={SITE.telegram} target="_blank" rel="noreferrer" className="flex h-11 items-center gap-2 rounded-md bg-[#229ED9] px-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity" aria-label="Telegram">
               <Send className="h-4 w-4" /> Telegram
+            </a>
+            <a href={SITE.instagram} target="_blank" rel="noreferrer" className="flex h-11 items-center gap-2 rounded-md bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] px-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity" aria-label="Instagram">
+              <Instagram className="h-4 w-4" /> Instagram
+            </a>
+            <a href={SITE.avito} target="_blank" rel="noreferrer" className="flex h-11 items-center gap-2 rounded-md bg-[#00AAFF] px-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity" aria-label="Avito">
+              <ShoppingBag className="h-4 w-4" /> Avito
             </a>
           </div>
         </div>
