@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { products } from "@/lib/catalog";
+import { serviceCategories } from "@/lib/services";
 import { Button } from "@/components/ui/button";
 import { CallbackDialog } from "@/components/CallbackDialog";
 import { SITE } from "@/lib/site";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/price-list")({
   head: () => ({
