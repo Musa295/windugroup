@@ -3,5 +3,11 @@
   "buildCommand": "vite build",
   "framework": null,
   "installCommand": "bun install",
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/__l5e/:path*",
+      "destination": "https://project--df3da8dd-bdd4-4469-872d-27f79e6fe10f.lovable.app/__l5e/:path*"
+    }
+  ]
 }
