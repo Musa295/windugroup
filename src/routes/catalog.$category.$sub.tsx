@@ -227,6 +227,86 @@ function SubPage() {
         </div>
       </section>
 
+      {/* Comparison with nearest sub-services */}
+      {siblings.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-14">
+          <div className="text-xs uppercase tracking-widest text-accent">Сравнение</div>
+          <h2 className="mt-2 font-display text-2xl font-bold md:text-3xl">
+            «{item.title}» vs ближайшие подвиды
+          </h2>
+          <p className="mt-2 max-w-3xl text-muted-foreground">
+            Сравните ключевые отличия, плюсы/минусы и типовые сценарии применения — чтобы выбрать оптимальный вариант в категории «{cat.title}».
+          </p>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {[item, ...siblings.slice(0, 2)].map((it, idx) => {
+              const isCurrent = it.slug === item.slug;
+              const priceSpec = it.specs?.find((s) => /цена/i.test(s.label));
+              return (
+                <div
+                  key={it.slug}
+                  className={`relative flex flex-col rounded-2xl border p-6 transition-all ${
+                    isCurrent ? "border-accent bg-accent/5 shadow-[var(--shadow-elevated)]" : "border-border bg-card"
+                  }`}
+                >
+                  {isCurrent && (
+                    <span className="absolute -top-3 left-6 rounded-full bg-accent px-3 py-0.5 text-[11px] font-bold uppercase tracking-wider text-accent-foreground">
+                      Выбранный
+                    </span>
+                  )}
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-11 w-11 place-items-center rounded-xl bg-accent/10 text-2xl">{it.emoji}</div>
+                    <div>
+                      <div className="font-display text-base font-bold">{it.title}</div>
+                      {priceSpec && <div className="text-xs text-accent">{priceSpec.value}</div>}
+                    </div>
+                  </div>
+                  <p className="mt-4 text-sm text-muted-foreground">{it.description}</p>
+
+                  {it.differences?.length ? (
+                    <div className="mt-5">
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Ключевые отличия</div>
+                      <ul className="mt-2 space-y-1.5">
+                        {it.differences.slice(0, 3).map((d) => (
+                          <li key={d} className="flex items-start gap-2 text-xs">
+                            <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
+                            <span>{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+
+                  {it.bestFor?.length ? (
+                    <div className="mt-5">
+                      <div className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Для каких задач</div>
+                      <div className="mt-2 flex flex-wrap gap-1.5">
+                        {it.bestFor.slice(0, 3).map((b) => (
+                          <span key={b} className="rounded-full bg-surface px-2.5 py-0.5 text-[11px] text-muted-foreground">
+                            {b}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {!isCurrent && (
+                    <Link
+                      to="/catalog/$category/$sub"
+                      params={{ category: cat.slug, sub: it.slug }}
+                      className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
+                    >
+                      Открыть подробнее <ChevronRight className="h-4 w-4" />
+                    </Link>
+                  )}
+                  <span className="sr-only">{idx}</span>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+
       {/* Gallery */}
       <section className="bg-surface py-14">
         <div className="mx-auto max-w-7xl px-4">
