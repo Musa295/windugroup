@@ -39,9 +39,43 @@ export const Route = createFileRoute("/catalog/")({
   component: CatalogPage,
 });
 
+// Метаданные для фильтров: тип изделия и материал
+const CAT_META: Record<string, { type: "window" | "door" | "balcony" | "vitrage" | "entrance"; materials: ("pvc" | "alu")[] }> = {
+  "plastikovye-okna": { type: "window", materials: ["pvc"] },
+  "alyuminievye-okna": { type: "window", materials: ["alu"] },
+  "alyuminievye-dveri": { type: "door", materials: ["alu", "pvc"] },
+  "vitrazhi": { type: "vitrage", materials: ["alu"] },
+  "vkhodnye-gruppy": { type: "entrance", materials: ["alu", "pvc"] },
+  "osteklenie-balkonov": { type: "balcony", materials: ["pvc", "alu"] },
+};
+
+const TYPE_OPTIONS = [
+  { id: "all", label: "Все изделия" },
+  { id: "window", label: "🪟 Окна" },
+  { id: "door", label: "🚪 Двери" },
+  { id: "balcony", label: "🏠 Балконы" },
+  { id: "vitrage", label: "🏢 Витражи" },
+  { id: "entrance", label: "🚪 Входные группы" },
+] as const;
+
+const MAT_OPTIONS = [
+  { id: "all", label: "Любой материал" },
+  { id: "pvc", label: "Пластик (ПВХ)" },
+  { id: "alu", label: "Алюминий" },
+] as const;
+
 function CatalogPage() {
   const [active, setActive] = useState<string>("all");
-  const visible = active === "all" ? serviceCategories : serviceCategories.filter((c) => c.slug === active);
+  const [typeF, setTypeF] = useState<string>("all");
+  const [matF, setMatF] = useState<string>("all");
+
+  const filtered = serviceCategories.filter((c) => {
+    const meta = CAT_META[c.slug];
+    if (active !== "all" && c.slug !== active) return false;
+    if (typeF !== "all" && meta?.type !== typeF) return false;
+    if (matF !== "all" && !meta?.materials.includes(matF as "pvc" | "alu")) return false;
+    return true;
+  });
 
   return (
     <>
@@ -54,33 +88,58 @@ function CatalogPage() {
           </h1>
           <p className="mt-4 max-w-3xl text-white/80">
             Единый каталог всех решений Windu.Group — от двустворчатого окна ПВХ до безрамного панорамного балкона и структурного витража.
-            Выберите категорию и посмотрите подробное описание каждого подвида с отличиями и характеристиками.
+            Отфильтруйте по типу изделия и материалу — и переходите к нужному подвиду.
           </p>
         </div>
       </section>
 
-      {/* Sticky category nav */}
+      {/* Filters */}
       <section className="sticky top-16 z-30 border-b border-border bg-background/95 py-3 backdrop-blur">
-        <div className="mx-auto max-w-7xl overflow-x-auto px-4">
-          <div className="flex flex-nowrap gap-2">
+        <div className="mx-auto max-w-7xl space-y-2 px-4">
+          <div className="flex items-center gap-2 overflow-x-auto">
+            <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Тип:</span>
+            {TYPE_OPTIONS.map((o) => (
+              <button
+                key={o.id}
+                onClick={() => setTypeF(o.id)}
+                className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium transition ${
+                  typeF === o.id ? "border-accent bg-accent text-accent-foreground" : "border-border bg-background hover:border-accent hover:text-accent"
+                }`}
+              >
+                {o.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto">
+            <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Материал:</span>
+            {MAT_OPTIONS.map((o) => (
+              <button
+                key={o.id}
+                onClick={() => setMatF(o.id)}
+                className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium transition ${
+                  matF === o.id ? "border-accent bg-accent text-accent-foreground" : "border-border bg-background hover:border-accent hover:text-accent"
+                }`}
+              >
+                {o.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1">
+            <span className="shrink-0 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Категория:</span>
             <button
               onClick={() => setActive("all")}
-              className={`whitespace-nowrap rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-                active === "all"
-                  ? "border-accent bg-accent text-accent-foreground"
-                  : "border-border bg-background hover:border-accent hover:text-accent"
+              className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium transition ${
+                active === "all" ? "border-accent bg-accent text-accent-foreground" : "border-border bg-background hover:border-accent hover:text-accent"
               }`}
             >
-              Все категории
+              Все
             </button>
             {serviceCategories.map((c) => (
               <button
                 key={c.slug}
                 onClick={() => setActive(c.slug)}
-                className={`whitespace-nowrap rounded-full border px-4 py-1.5 text-sm font-medium transition ${
-                  active === c.slug
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-border bg-background hover:border-accent hover:text-accent"
+                className={`whitespace-nowrap rounded-full border px-3 py-1 text-xs font-medium transition ${
+                  active === c.slug ? "border-accent bg-accent text-accent-foreground" : "border-border bg-background hover:border-accent hover:text-accent"
                 }`}
               >
                 {c.title}
@@ -90,9 +149,24 @@ function CatalogPage() {
         </div>
       </section>
 
+      {/* Empty state */}
+      {filtered.length === 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-20 text-center">
+          <p className="text-lg font-semibold">Ничего не найдено под выбранные фильтры</p>
+          <p className="mt-2 text-sm text-muted-foreground">Сбросьте фильтры или выберите другой тип / материал.</p>
+          <button
+            onClick={() => { setActive("all"); setTypeF("all"); setMatF("all"); }}
+            className="mt-4 rounded-full border border-accent bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground"
+          >
+            Сбросить фильтры
+          </button>
+        </section>
+      )}
+
+
       {/* Categories */}
       <section className="mx-auto max-w-7xl space-y-16 px-4 py-16">
-        {visible.map((cat) => (
+        {filtered.map((cat) => (
           <div key={cat.slug} id={cat.slug} className="scroll-mt-36">
             <div className="flex flex-wrap items-end justify-between gap-4">
               <div>

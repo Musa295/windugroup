@@ -11,5 +11,7 @@ export const SITE = {
   hours: "Ежедневно с 9:00 до 20:00",
   whatsapp: "https://wa.me/79380044040",
   telegram: "https://t.me/+79380044040",
+  instagram: "https://www.instagram.com/vindu.group?igsh=MWQ4emxnODV1ZjRydw==",
+  avito: "https://www.avito.ru/brands/ef80e20c3820457d6c353371aa56e26a",
   origin: "https://windugroup.lovable.app",
 };

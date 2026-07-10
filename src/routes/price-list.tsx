@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { products } from "@/lib/catalog";
+import { serviceCategories } from "@/lib/services";
 import { Button } from "@/components/ui/button";
 import { CallbackDialog } from "@/components/CallbackDialog";
 import { SITE } from "@/lib/site";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/price-list")({
   head: () => ({
@@ -36,6 +37,36 @@ function PriceListPage() {
             Стартовые цены на все виды продукции. Финальная стоимость зависит от размеров и комплектации —
             уточнит менеджер после бесплатного замера.
           </p>
+        </div>
+      </section>
+      {/* Subcategory quick links */}
+      <section className="border-b border-border bg-surface py-8">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="text-xs uppercase tracking-widest text-accent">Подпункты по категориям</div>
+          <h2 className="mt-1 font-display text-lg font-bold">Быстрый переход к нужному подвиду</h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {serviceCategories.map((cat) => (
+              <details key={cat.slug} className="group rounded-2xl border border-border bg-card p-4 open:shadow-[var(--shadow-soft)]">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-2 font-display text-sm font-semibold">
+                  <span>{cat.title}</span>
+                  <ChevronRight className="h-4 w-4 shrink-0 text-accent transition-transform group-open:rotate-90" />
+                </summary>
+                <ul className="mt-3 space-y-1.5">
+                  {cat.items.map((s) => (
+                    <li key={s.slug}>
+                      <Link
+                        to="/catalog/$category/$sub"
+                        params={{ category: cat.slug, sub: s.slug }}
+                        className="text-xs text-muted-foreground hover:text-accent"
+                      >
+                        {s.emoji} {s.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 
