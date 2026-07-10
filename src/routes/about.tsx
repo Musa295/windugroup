@@ -87,10 +87,8 @@ function AboutPage() {
               </Button>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-4 rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur">
-            <Stat n="7+" l="лет на рынке" />
-            <Stat n="1200+" l="объектов" />
-            <Stat n="40+" l="сотрудников" />
+          <div className="grid grid-cols-2 gap-4 rounded-2xl border border-white/15 bg-white/5 p-6 backdrop-blur">
+            <Stat n="С 2018" l="на рынке" />
             <Stat n="10 лет" l="гарантия" />
             <Stat n="0%" l="рассрочка" />
             <Stat n="4.9" l="рейтинг клиентов" />
