@@ -58,35 +58,12 @@ const perks = [
   { icon: ShieldCheck, text: "Гарантия до 10 лет" },
 ];
 
-// Комплектации (по категории)
-const bundlesByCategory: Record<string, { name: string; price: string; includes: string[] }[]> = {
-  "Окна": [
-    { name: "Базовая", price: "включено", includes: ["3-камерный профиль 60 мм", "Двухкамерный стеклопакет 32 мм", "Фурнитура Vorne", "Москитная сетка"] },
-    { name: "Оптимальная", price: "+ 15%", includes: ["5-камерный профиль 70 мм", "Энергосберегающий стеклопакет i-стекло", "Фурнитура Roto", "Микропроветривание", "Москитная сетка"] },
-    { name: "Премиум", price: "+ 30%", includes: ["6-камерный профиль 82 мм", "Трёхкамерный стеклопакет", "Фурнитура Siegenia", "Ламинация под дерево", "Противовзломная защита"] },
-  ],
-  "Двери": [
-    { name: "Стандарт", price: "включено", includes: ["Усиленный профиль", "Сэндвич-панель", "Многоточечный замок"] },
-    { name: "Комфорт", price: "+ 20%", includes: ["Триплекс", "Доводчик", "Ручка-скоба нерж."] },
-    { name: "Премиум", price: "+ 40%", includes: ["Тёплый алюминий", "Электромагнитный замок", "Автоматика GEZE"] },
-  ],
-  "Балконы": [
-    { name: "Холодное", price: "от 32 000 ₽", includes: ["Раздвижной алюминий Provedal", "Одинарное стекло", "Отделка сайдингом"] },
-    { name: "Тёплое", price: "от 55 000 ₽", includes: ["ПВХ-профиль 70 мм", "Двухкамерный стеклопакет", "Утепление пеноплексом", "Отделка ПВХ-панелями"] },
-  ],
-  "Сетки": [
-    { name: "Стандартная", price: "включено", includes: ["Алюминиевая рамка", "Фибергласс 1.2 мм", "Металлические крючки"] },
-    { name: "Усиленная", price: "+ 20%", includes: ["Полотно Pet Screen", "Z-крючки 4–8 шт", "Гарантия 3 года"] },
-  ],
-};
-
 function ProductPage() {
   const data = Route.useLoaderData() as { product: Product } | undefined;
   if (!data) return null;
   const { product } = data;
   const related = products.filter((p) => p.slug !== product.slug && p.category === product.category).slice(0, 3);
   const gallery = [product.image, ...works.slice(0, 5).map((w) => w.src)];
-  const bundles = bundlesByCategory[product.category] ?? [];
 
   return (
     <>
@@ -146,13 +123,12 @@ function ProductPage() {
         </div>
       </section>
 
-      {/* Табы: преимущества, комплектации, характеристики, галерея */}
+      {/* Табы: преимущества, характеристики, галерея */}
       <section className="bg-surface py-12">
         <div className="mx-auto max-w-7xl px-4">
           <Tabs defaultValue="features">
             <TabsList className="flex flex-wrap gap-2 bg-transparent p-0">
               <TabsTrigger value="features" className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Преимущества</TabsTrigger>
-              <TabsTrigger value="bundles" className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Комплектации</TabsTrigger>
               <TabsTrigger value="specs" className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Характеристики</TabsTrigger>
               <TabsTrigger value="gallery" className="data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">Галерея</TabsTrigger>
             </TabsList>
@@ -168,25 +144,7 @@ function ProductPage() {
               </div>
             </TabsContent>
 
-            <TabsContent value="bundles" className="mt-6">
-              <div className="grid gap-4 md:grid-cols-3">
-                {bundles.map((b) => (
-                  <div key={b.name} className="rounded-2xl border border-border bg-card p-6">
-                    <div className="flex items-baseline justify-between">
-                      <div className="font-display text-lg font-bold">{b.name}</div>
-                      <div className="text-sm font-semibold text-accent">{b.price}</div>
-                    </div>
-                    <ul className="mt-4 space-y-2 text-sm">
-                      {b.includes.map((i) => (
-                        <li key={i} className="flex gap-2">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-accent" /> {i}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
+
 
             <TabsContent value="specs" className="mt-6">
               <div className="overflow-hidden rounded-2xl border border-border bg-card">

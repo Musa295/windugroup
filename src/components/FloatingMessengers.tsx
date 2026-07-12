@@ -1,12 +1,10 @@
-import { MessageCircle, Send, Phone, Instagram, ShoppingBag } from "lucide-react";
+import { MessageCircle, Phone, Instagram } from "lucide-react";
 import { SITE } from "@/lib/site";
 
 export function FloatingMessengers() {
   const items = [
     { href: SITE.whatsapp, label: "WhatsApp", icon: MessageCircle, bg: "bg-[#25D366]" },
-    { href: SITE.telegram, label: "Telegram", icon: Send, bg: "bg-[#229ED9]" },
     { href: SITE.instagram, label: "Instagram", icon: Instagram, bg: "bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF]" },
-    { href: SITE.avito, label: "Avito", icon: ShoppingBag, bg: "bg-[#00AAFF]" },
     { href: SITE.phoneHref, label: "Позвонить", icon: Phone, bg: "bg-accent" },
   ];
   return (
