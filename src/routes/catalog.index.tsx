@@ -43,10 +43,12 @@ export const Route = createFileRoute("/catalog/")({
 const CAT_META: Record<string, { type: "window" | "door" | "balcony" | "vitrage" | "entrance"; materials: ("pvc" | "alu")[] }> = {
   "plastikovye-okna": { type: "window", materials: ["pvc"] },
   "alyuminievye-okna": { type: "window", materials: ["alu"] },
-  "alyuminievye-dveri": { type: "door", materials: ["alu", "pvc"] },
+  "plastikovye-dveri": { type: "door", materials: ["pvc"] },
+  "alyuminievye-dveri": { type: "door", materials: ["alu"] },
   "vitrazhi": { type: "vitrage", materials: ["alu"] },
   "vkhodnye-gruppy": { type: "entrance", materials: ["alu", "pvc"] },
   "osteklenie-balkonov": { type: "balcony", materials: ["pvc", "alu"] },
+  "balkony": { type: "balcony", materials: ["pvc", "alu"] },
 };
 
 const TYPE_OPTIONS = [

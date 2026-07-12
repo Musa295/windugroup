@@ -48,6 +48,12 @@ export function CallbackDialog({ children, defaultTopic }: Props) {
       return;
     }
 
+    // Согласие на обработку персональных данных (152-ФЗ)
+    if (fd.get("consent") !== "on") {
+      toast.error("Отметьте согласие на обработку персональных данных");
+      return;
+    }
+
     // Простая математическая капча
     const captchaValue = Number(fd.get("captcha"));
     if (!Number.isFinite(captchaValue) || captchaValue !== captcha.answer) {
@@ -133,12 +139,23 @@ export function CallbackDialog({ children, defaultTopic }: Props) {
             <Input id="cb-captcha" name="captcha" required type="number" inputMode="numeric" placeholder="Ответ" className="h-12 text-base" />
           </div>
 
+          <label className="flex items-start gap-2 text-[12px] leading-snug text-muted-foreground">
+            <input
+              type="checkbox"
+              name="consent"
+              defaultChecked
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-input accent-[hsl(var(--accent))]"
+              required
+            />
+            <span>
+              Согласен на обработку персональных данных в соответствии с 152-ФЗ и{" "}
+              <a href="/privacy" className="underline hover:text-accent">Политикой конфиденциальности</a>.
+            </span>
+          </label>
+
           <Button type="submit" variant="accent" size="lg" className="h-12 w-full text-base" disabled={submitting}>
             {submitting ? "Отправляем…" : "Отправить заявку"}
           </Button>
-          <p className="text-[11px] text-muted-foreground text-center">
-            Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
-          </p>
         </form>
       </DialogContent>
     </Dialog>

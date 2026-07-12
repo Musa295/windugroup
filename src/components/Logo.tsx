@@ -1,16 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/logo.png";
+import logoAsset from "@/assets/windu-logo.png.asset.json";
 
 export function Logo({ variant = "dark", compact = false }: { variant?: "dark" | "light"; compact?: boolean }) {
   return (
     <Link to="/" className="flex items-center gap-2.5">
       <img
-        src={logo}
+        src={logoAsset.url}
         alt="Windu.Group"
-        width={40}
-        height={40}
-        className="h-10 w-10 shrink-0 object-contain"
-        style={variant === "light" ? { filter: "brightness(0) invert(1)" } : undefined}
+        width={44}
+        height={44}
+        className="h-11 w-11 shrink-0 rounded-full object-cover ring-1 ring-border"
       />
       {!compact && (
         <div className="leading-tight">
